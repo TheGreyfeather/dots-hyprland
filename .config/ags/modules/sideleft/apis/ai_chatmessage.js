@@ -13,6 +13,11 @@ import { setupCursorHover } from "../../.widgetutils/cursorhover.js";
 const LATEX_DIR = `${GLib.get_user_cache_dir()}/ags/media/latex`;
 const USERNAME = GLib.get_user_name();
 
+/**
+ * substitutes long language name to short names
+ * @param {string} str 
+ * @returns { 'js' | 'sh' | string } 
+ */
 function substituteLang(str) {
     const subs = [
         { from: 'javascript', to: 'js' },
