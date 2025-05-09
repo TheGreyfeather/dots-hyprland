@@ -56,7 +56,7 @@ export const ConfigToggle = ({
         tooltipText: desc,
         className: 'txt spacing-h-5',
         children: [
-            ...(icon !== undefined ? [MaterialIcon(icon, 'norm', {vpack: 'center'})] : []),
+            ...(icon !== undefined ? [MaterialIcon(icon, 'norm', { vpack: 'center' })] : []),
             ...(name !== undefined ? [Label({
                 vpack: 'center',
                 className: 'txt txt-small',
@@ -205,6 +205,10 @@ export const ConfigMulipleSelection = ({
 
 }
 
+/**
+ * @param {{vertical: boolean; size: 5 | 10 | 15; [x: string]: unknown}} BoxConfig
+ * @returns 
+ */
 export const ConfigGap = ({ vertical = true, size = 5, ...rest }) => Box({
     className: `gap-${vertical ? 'v' : 'h'}-${size}`,
     ...rest,
