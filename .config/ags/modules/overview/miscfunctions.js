@@ -1,15 +1,25 @@
 const { Gio, GLib } = imports.gi;
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
-const { execAsync, exec } = Utils;
+const { execAsync } = Utils;
 import Todo from "../../services/todo.js";
 
+/**
+ * Uses regular expression to match an unbalanced number of backslashes
+ * @param {string} inputString
+ * @returns {bool}
+ */
 export function hasUnterminatedBackslash(inputString) {
     // Use a regular expression to match a trailing odd number of backslashes
     const regex = /\\+$/;
     return regex.test(inputString);
 }
 
+/**
+ * Custom Command Launcher
+ * @description parses a command string into runnable commands and parameters
+ * @param {string} command command to run
+ */
 export function launchCustomCommand(command) {
     const args = command.toLowerCase().split(' ');
     if (args[0] == '>raw') { // Mouse raw input
@@ -71,6 +81,11 @@ export function launchCustomCommand(command) {
     }
 }
 
+/**
+ * Executes a command using ags utils and then exits
+ * @param {string} command 
+ * @param {boolean} terminal indicates if the command should be ran in a user terminal
+ */
 export function execAndClose(command, terminal) {
     App.closeWindow('overview');
     if (terminal) {
@@ -80,11 +95,21 @@ export function execAndClose(command, terminal) {
         execAsync(command).catch(print);
 }
 
+/**
+ * Uses Regex to check if a string could be math
+ * @param {string} str 
+ * @returns {boolean}  indicating that it *could* be math
+ */
 export function couldBeMath(str) {
     const regex = /^[0-9.+*/-]/;
     return regex.test(str);
 }
 
+/**
+ * expands the tilde to return the home directory of the current user
+ * @param {string} path 
+ * @returns {string} original path, expanded to include the home directory
+ */
 export function expandTilde(path) {
     if (path.startsWith('~')) {
         return GLib.get_home_dir() + path.slice(1);
